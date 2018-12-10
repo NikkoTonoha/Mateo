@@ -24,13 +24,12 @@ def filling_aver(array, format_json=True):
 
     aver = sum(full) / len(full)
 
-    result=filling(array, aver)
+    result = filling(array, aver)
     return json.dumps(result) if format_json else result
 
 
 def filling_mode(array):
     """Fills the missing values ​​by a mode"""
-
 
     if type(array) is str:
         array = json.loads(array)
