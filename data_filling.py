@@ -35,10 +35,7 @@ def filling_mode(array):
         array = json.loads(array)
     counters = collections.Counter(array)
 
-    if math.nan in counters:
-        del counters[math.nan]
-
-    mode = reduce(lambda a, x: x if counters[x] > counters[a] and not math.isnan(x) else a, counters)
+    mode = reduce(lambda a, x: x if math.isnan(a) or not math.isnan(x) and counters[x] > counters[a] else a, counters.keys())
 
     return json.dumps(filling(array, mode))
 
