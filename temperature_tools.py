@@ -41,8 +41,29 @@ def average_daily_month(minimum, maximum):
     if type(minimum) is str:
         minimum = json.loads(minimum)
 
+    code=1
+
+    known_items=len(list(filter(lambda x: not math.isnan(x), minimum)))
+
+    if known_items==len(minimum):
+        code=1
+
+    elif known_items>=len(minimum)/2:
+        code=0
+    else:
+        return -1, "insufficient data"
+
     if type(maximum) is str:
         maximum = json.loads(maximum)
 
+    known_items = len(list(filter(lambda x: not math.isnan(x), maximum)))
+
+    if known_items>= len(maximum)/2:
+        code=0
+    elif known_items< len(maximum)/2:
+        return -1, "insufficient data"
+
+
     aver = [average_day(minimum[i], maximum[i])[1] for i in range(max(len(minimum), len(maximum)))]
-    return average_month(aver)
+
+    return code, average_month(aver)
